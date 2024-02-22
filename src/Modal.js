@@ -1,7 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
-function Modal({ open, setOpen }) {
+function Modal({ open, setOpen, setData, data }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
@@ -36,26 +39,34 @@ function Modal({ open, setOpen }) {
                   Add Item
                 </Dialog.Title>
                 <div className="flex flex-col mt-5 gap-3">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1">
                     <label htmlFor="title">Title</label>
                     <input
                       id="title"
                       className="border-2 rounded-lg px-2 py-1"
                       type="text"
                       placeholder="Masukkan title"
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1">
                     <label htmlFor="description">Description</label>
                     <input
                       id="description"
                       className="border-2 rounded-lg px-2 py-1"
                       type="text"
                       placeholder="Masukkan description"
+                      onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
                 </div>
-                <button className="border bg-blue-200 w-full mt-5 rounded-xl py-2">
+                <button
+                  className="border bg-blue-200 hover:bg-blue-400 transition-all duration-200 w-full mt-5 rounded-xl py-2"
+                  onClick={() => {
+                    setData([...data, { title, description }]);
+                    setOpen(false);
+                  }}
+                >
                   Add
                 </button>
               </Dialog.Panel>

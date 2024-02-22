@@ -9,7 +9,7 @@ function List({ data, title, setData, className }) {
 
   return (
     <>
-      <Modal open={open} setOpen={setOpen} />
+      <Modal open={open} setOpen={setOpen} setData={setData} data={data} />
       <div
         className={clsxm(
           "w-1/4 bg-red-300 flex flex-col justify-between h-full p-3 gap-y-2",
