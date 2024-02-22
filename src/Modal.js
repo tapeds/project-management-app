@@ -1,9 +1,18 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import toast from "react-hot-toast";
 
 function Modal({ open, setOpen, setData, data }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const onSubmit = () => {
+    if (title.length === 0 || description.length === 0) {
+      return toast.error("Title and description cannot be empty");
+    }
+    setData([...data, { title, description }]);
+    setOpen(false);
+  };
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -61,11 +70,8 @@ function Modal({ open, setOpen, setData, data }) {
                   </div>
                 </div>
                 <button
-                  className="border bg-blue-200 hover:bg-blue-400 transition-all duration-200 w-full mt-5 rounded-xl py-2"
-                  onClick={() => {
-                    setData([...data, { title, description }]);
-                    setOpen(false);
-                  }}
+                  className="border bg-blue-200 hover:bg-blue-400 active:bg-blue-700 transition-all duration-200 w-full mt-5 rounded-xl py-2"
+                  onClick={() => onSubmit()}
                 >
                   Add
                 </button>
