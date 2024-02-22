@@ -10,6 +10,7 @@ function App() {
 
   return (
     <main className="h-full overflow-hidden">
+      <title>ALeN</title>
       <div className="min-h-screen h-full flex flex-col gap-10 justify-center items-start md:items-center bg-[#F6F6F6]">
         <div className="flex flex-col md:items-center">
           <h1 className="text-4xl font-bold px-5 text-gray-900">ALeN</h1>

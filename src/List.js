@@ -21,6 +21,9 @@ function List({ data, title, setData, className }) {
           {data.map((card, index) => (
             <Card
               key={index}
+              index={index}
+              data={data}
+              setData={setData}
               title={card.title}
               description={card.description}
             />

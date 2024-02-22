@@ -1,6 +1,11 @@
 import { FiTrash2 } from "react-icons/fi";
 
-function Card({ title, description }) {
+function Card({ title, description, index, data, setData }) {
+  const onClick = () => {
+    const newData = data.filter((_, i) => i !== index);
+    setData(newData);
+  };
+
   return (
     <div className="w-full bg-[#F6F6F6] py-2 flex justify-between items-center px-4 rounded-md group">
       <div className="flex flex-col">
@@ -9,7 +14,10 @@ function Card({ title, description }) {
           {description}
         </p>
       </div>
-      <FiTrash2 className="size-4 hover:cursor-pointer group-hover:opacity-100 text-red-500 opacity-0" />
+      <FiTrash2
+        className="size-4 hover:cursor-pointer group-hover:opacity-100 text-red-500 opacity-0"
+        onClick={() => onClick()}
+      />
     </div>
   );
 }

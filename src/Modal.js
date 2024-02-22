@@ -40,7 +40,7 @@ function Modal({ open, setOpen, setData, data }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#F6F6F6] text-gray-900 p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-2xl font-medium leading-6 text-gray-900"
@@ -70,7 +70,7 @@ function Modal({ open, setOpen, setData, data }) {
                   </div>
                 </div>
                 <button
-                  className="border bg-blue-200 hover:bg-blue-400 active:bg-blue-700 transition-all duration-200 w-full mt-5 rounded-xl py-2"
+                  className="border bg-gray-800 text-slate-50 hover:bg-gray-600 active:bg-gray-400 font-semibold transition-all duration-200 w-full mt-5 rounded-xl py-2"
                   onClick={() => onSubmit()}
                 >
                   Add
