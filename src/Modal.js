@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 
-function Modal({ open, setOpen, setData, data }) {
+function Modal({ open, setOpen, data, storage }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -10,7 +10,11 @@ function Modal({ open, setOpen, setData, data }) {
     if (title.length === 0 || description.length === 0) {
       return toast.error("Title and description cannot be empty");
     }
-    setData([...data, { title, description }]);
+    const a = data;
+
+    a.push({ title, description });
+
+    localStorage.setItem(`${storage}`, JSON.stringify(a));
     setOpen(false);
   };
 

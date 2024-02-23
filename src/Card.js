@@ -1,9 +1,10 @@
 import { FiTrash2 } from "react-icons/fi";
 
-function Card({ title, description, index, data, setData }) {
+function Card({ title, description, index, data, storage }) {
   const onClick = () => {
     const newData = data.filter((_, i) => i !== index);
-    setData(newData);
+    localStorage.setItem(`${storage}`, JSON.stringify(newData));
+    window.location.reload();
   };
 
   return (

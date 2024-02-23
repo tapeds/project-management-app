@@ -1,17 +1,18 @@
 import "./App.css";
-import { useState } from "react";
 import List from "./List";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [progress, setProgress] = useState([]);
-  const [revision, setRevision] = useState([]);
-  const [done, setDone] = useState([]);
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  const progress = JSON.parse(localStorage.getItem("progress"));
+  const revision = JSON.parse(localStorage.getItem("revision"));
+  const done = JSON.parse(localStorage.getItem("done"));
+
+  console.log(todos);
 
   return (
     <main className="h-full overflow-hidden">
       <title>ALeN</title>
-      <div className="min-h-screen h-full flex flex-col gap-10 justify-center items-start md:items-center bg-[#F6F6F6]">
+      <div className="min-h-screen h-full flex flex-col gap-5 md:gap-10 justify-center items-start md:items-center bg-[#F6F6F6]">
         <div className="flex flex-col md:items-center">
           <h1 className="text-4xl font-bold px-5 text-gray-900">ALeN</h1>
           <h1 className="text-2xl font-bold px-5 text-gray-900">
@@ -22,15 +23,15 @@ function App() {
           <div className="h-[450px] w-[1000px] bg-gray-900 flex p-3 gap-3 rounded-xl divide-x-2 divide-gray-600">
             <List
               data={todos}
-              setData={setTodos}
+              storage="todos"
               title="To Do"
               className="rounded-l-md"
             />
-            <List data={progress} setData={setProgress} title="In Progress" />
-            <List data={revision} setData={setRevision} title="In Revision" />
+            <List data={progress} storage="progress" title="In Progress" />
+            <List data={revision} storage="revision" title="In Revision" />
             <List
               data={done}
-              setData={setDone}
+              storage="done"
               title="Done"
               className="rounded-r-md"
             />
