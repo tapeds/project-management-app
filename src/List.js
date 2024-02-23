@@ -11,20 +11,20 @@ function List({ data, title, className }) {
   return (
     <>
       <Modal open={open} setOpen={setOpen} data={data} storage={title} />
-      <Droppable droppableId={title}>
-        {(provided) => (
-          <div
-            className={clsxm(
-              "w-1/4 bg-red-30 flex flex-col justify-between h-full p-3 gap-y-2",
-              className
-            )}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            <div className="text-center font-semibold text-slate-50">
-              {title}
-            </div>
-            <div className="h-full rounded-lg flex flex-col gap-y-1 overflow-auto">
+      <div
+        className={clsxm(
+          "w-1/4 bg-red-30 flex flex-col justify-between h-full p-3 gap-y-2",
+          className
+        )}
+      >
+        <div className="text-center font-semibold text-slate-50">{title}</div>
+        <Droppable droppableId={title}>
+          {(provided) => (
+            <div
+              className="h-full rounded-lg flex flex-col gap-y-1 overflow-auto"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
               {data !== null &&
                 data.map((card, index) => (
                   <Card
@@ -38,15 +38,15 @@ function List({ data, title, className }) {
                 ))}
               {provided.placeholder}
             </div>
-            <div
-              className="hover:cursor-pointer flex items-center gap-2 text-slate-50"
-              onClick={() => setOpen(!open)}
-            >
-              <FaPlus className="size-4" /> Add Item
-            </div>
-          </div>
-        )}
-      </Droppable>
+          )}
+        </Droppable>
+        <div
+          className="hover:cursor-pointer flex items-center gap-2 text-slate-50"
+          onClick={() => setOpen(!open)}
+        >
+          <FaPlus className="size-4" /> Add Item
+        </div>
+      </div>
     </>
   );
 }
