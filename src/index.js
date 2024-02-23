@@ -7,7 +7,8 @@ import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <main>
     <head>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +19,7 @@ root.render(
     </head>
     <Toaster />
     <App />
-  </React.StrictMode>
+  </main>
 );
 
 // If you want to start measuring performance in your app, pass a function
