@@ -10,7 +10,7 @@ function Modal({ open, setOpen, data, storage }) {
     if (title.length === 0 || description.length === 0) {
       return toast.error("Title and description cannot be empty");
     }
-    const a = data;
+    const a = data || [];
 
     a.push({ title, description });
 
