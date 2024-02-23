@@ -39,7 +39,7 @@ function App() {
       <title>ALeN</title>
       <div className="min-h-screen h-full flex flex-col gap-5 md:gap-10 justify-center items-start md:items-center bg-[#F6F6F6]">
         <div className="flex flex-col md:items-center">
-          <h1 className="text-4xl font-bold px-5 text-gray-900">ALeN</h1>
+          <h1 className="text-4xl font-bold px-5 text-gray-900">SHAV</h1>
           <h1 className="text-2xl font-bold px-5 text-gray-900">
             Project Management App
           </h1>
