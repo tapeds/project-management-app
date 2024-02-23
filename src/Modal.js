@@ -16,6 +16,7 @@ function Modal({ open, setOpen, data, storage }) {
 
     localStorage.setItem(`${storage}`, JSON.stringify(a));
     setOpen(false);
+    window.location.reload();
   };
 
   return (

@@ -7,8 +7,6 @@ function App() {
   const revision = JSON.parse(localStorage.getItem("revision"));
   const done = JSON.parse(localStorage.getItem("done"));
 
-  console.log(todos);
-
   return (
     <main className="h-full overflow-hidden">
       <title>ALeN</title>
