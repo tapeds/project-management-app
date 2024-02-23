@@ -71,7 +71,7 @@ function Card({ title, description, index, data, storage }) {
           ) : (
             <>
               <input
-                className="w-1/2 bg-[#F6F6F6] "
+                className="w-3/4 px-1 text-sm border"
                 placeholder="Title"
                 defaultValue={title}
                 onChange={(e) => {
@@ -80,7 +80,7 @@ function Card({ title, description, index, data, storage }) {
                 }}
               />
               <input
-                className="w-3/4 bg-[#F6F6F6] text-xs"
+                className="w-3/4 text-sm px-1 border"
                 placeholder="Description"
                 defaultValue={description}
                 onChange={(e) => {
