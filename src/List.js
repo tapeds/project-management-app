@@ -4,12 +4,12 @@ import clsxm from "./clsxm";
 import { useState } from "react";
 import Modal from "./Modal";
 
-function List({ data, title, className, storage }) {
+function List({ data, title, className }) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <Modal open={open} setOpen={setOpen} data={data} storage={storage} />
+      <Modal open={open} setOpen={setOpen} data={data} storage={title} />
       <div
         className={clsxm(
           "w-1/4 bg-red-30 flex flex-col justify-between h-full p-3 gap-y-2",
@@ -24,7 +24,7 @@ function List({ data, title, className, storage }) {
                 key={index}
                 index={index}
                 data={data}
-                storage={storage}
+                storage={title}
                 title={card.title}
                 description={card.description}
               />
