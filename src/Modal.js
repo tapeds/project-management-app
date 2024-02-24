@@ -14,15 +14,17 @@ const customStyles = {
   },
 };
 
-function CustomModal({ open, setOpen, data, storage }) {
+function CustomModal({ open, setOpen, storage }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const list = JSON.parse(localStorage.getItem(`${storage}`));
 
   const onSubmit = () => {
     if (title.length === 0 || description.length === 0) {
       return toast.error("Title and description cannot be empty");
     }
-    const a = data || [];
+    const a = list || [];
 
     a.push({ title, description });
 
