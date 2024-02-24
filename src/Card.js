@@ -13,7 +13,7 @@ function Card({ title, description, index, storage, data }) {
 
   const onClick = () => {
     const newData = data.filter((_, i) => i !== index);
-    localStorage.setItem(`${storage}`, JSON.stringify(newData));
+    localStorage.setItem(storage, JSON.stringify(newData));
     window.location.reload();
   };
 
@@ -23,20 +23,21 @@ function Card({ title, description, index, storage, data }) {
       title: newTitle || title,
       description: newDescription || description,
     });
-    localStorage.setItem(`${storage}`, JSON.stringify(newData));
+    localStorage.setItem(storage, JSON.stringify(newData));
     window.location.reload();
   };
 
   const moveData = (newStorage) => {
-    const storageData = JSON.parse(localStorage.getItem(`${newStorage}`));
+    const storageData = JSON.parse(localStorage.getItem(newStorage));
     const newData = data.filter((_, i) => i === index);
+
     if (storageData === null) {
       const a = [];
       a.push(newData[0]);
-      localStorage.setItem(`${newStorage}`, JSON.stringify(a));
+      localStorage.setItem(newStorage, JSON.stringify(a));
     } else {
       storageData.push(newData[0]);
-      localStorage.setItem(`${newStorage}`, JSON.stringify(storageData));
+      localStorage.setItem(newStorage, JSON.stringify(storageData));
     }
     onClick();
   };

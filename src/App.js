@@ -13,20 +13,27 @@ function App() {
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
+
     if (!destination) {
       return;
     }
     const sourceList = [...lists[source.droppableId]];
     const card = sourceList[source.index];
+
     sourceList.splice(source.index, 1);
+
     const destinationList = [...lists[destination.droppableId]];
+
     destinationList.splice(destination.index, 0, card);
+
     const newLists = {
       ...lists,
       [source.droppableId]: sourceList,
       [destination.droppableId]: destinationList,
     };
+
     setLists(newLists);
+
     localStorage.setItem(source.droppableId, JSON.stringify(sourceList));
     localStorage.setItem(
       destination.droppableId,

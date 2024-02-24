@@ -14,21 +14,19 @@ const customStyles = {
   },
 };
 
-function CustomModal({ open, setOpen, storage }) {
+function CustomModal({ open, setOpen, storage, data }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const list = JSON.parse(localStorage.getItem(`${storage}`));
 
   const onSubmit = () => {
     if (title.length === 0 || description.length === 0) {
       return toast.error("Title and description cannot be empty");
     }
-    const a = list || [];
+    const a = data || [];
 
     a.push({ title, description });
 
-    localStorage.setItem(`${storage}`, JSON.stringify(a));
+    localStorage.setItem(storage, JSON.stringify(a));
     setOpen(false);
     window.location.reload();
   };
