@@ -5,33 +5,29 @@ import clsxm from "./clsxm";
 import { LuSave } from "react-icons/lu";
 import { Draggable } from "react-beautiful-dnd";
 
-function Card({ title, description, index, storage }) {
+function Card({ title, description, index, storage, data }) {
   const [edit, setEdit] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [change, setChange] = useState(false);
 
-  const list = JSON.parse(localStorage.getItem(`${storage}`));
-
   const onClick = () => {
-    const newData = list.filter((_, i) => i !== index);
+    const newData = data.filter((_, i) => i !== index);
     localStorage.setItem(`${storage}`, JSON.stringify(newData));
-    window.location.reload();
   };
 
   const editData = () => {
-    const newData = list.filter((_, i) => i !== index);
+    const newData = data.filter((_, i) => i !== index);
     newData.push({
       title: newTitle || title,
       description: newDescription || description,
     });
     localStorage.setItem(`${storage}`, JSON.stringify(newData));
-    window.location.reload();
   };
 
   const moveData = (newStorage) => {
     const storageData = JSON.parse(localStorage.getItem(`${newStorage}`));
-    const newData = list.filter((_, i) => i === index);
+    const newData = data.filter((_, i) => i === index);
     if (storageData === null) {
       const a = [];
       a.push(newData[0]);

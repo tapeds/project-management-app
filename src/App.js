@@ -1,32 +1,37 @@
+import { useState } from "react";
 import "./App.css";
 import List from "./List";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
+  const [lists, setLists] = useState({
+    "To Do": JSON.parse(localStorage.getItem("To Do")) || [],
+    "In Progress": JSON.parse(localStorage.getItem("In Progress")) || [],
+    "In Revision": JSON.parse(localStorage.getItem("In Revision")) || [],
+    Done: JSON.parse(localStorage.getItem("Done")) || [],
+  });
+
   const onDragEnd = (result) => {
     const { source, destination } = result;
-
     if (!destination) {
       return;
     }
-
-    const sourceList = JSON.parse(localStorage.getItem(source.droppableId));
+    const sourceList = [...lists[source.droppableId]];
     const card = sourceList[source.index];
-
     sourceList.splice(source.index, 1);
-    localStorage.setItem(source.droppableId, JSON.stringify(sourceList));
-
-    const destinationList =
-      JSON.parse(localStorage.getItem(destination.droppableId)) || [];
-
+    const destinationList = [...lists[destination.droppableId]];
     destinationList.splice(destination.index, 0, card);
-
+    const newLists = {
+      ...lists,
+      [source.droppableId]: sourceList,
+      [destination.droppableId]: destinationList,
+    };
+    setLists(newLists);
+    localStorage.setItem(source.droppableId, JSON.stringify(sourceList));
     localStorage.setItem(
       destination.droppableId,
       JSON.stringify(destinationList)
     );
-
-    window.location.reload();
   };
 
   return (
@@ -41,10 +46,18 @@ function App() {
         <div className="w-full flex flex-col justify-center items-start lg:items-center max-lg:px-5 max-lg:overflow-x-scroll">
           <DragDropContext onDragEnd={onDragEnd}>
             <div className="h-[450px] w-[1000px] bg-gray-900 flex p-3 gap-3 rounded-xl divide-x-2 divide-gray-600">
-              <List title="To Do" className="rounded-l-md" />
-              <List title="In Progress" />
-              <List title="In Revision" />
-              <List title="Done" className="rounded-r-md" />
+              <List
+                title="To Do"
+                className="rounded-l-md"
+                data={lists["To Do"]}
+              />
+              <List title="In Progress" data={lists["In Progress"]} />
+              <List title="In Revision" data={lists["In Revision"]} />
+              <List
+                title="Done"
+                className="rounded-r-md"
+                data={lists["Done"]}
+              />
             </div>
           </DragDropContext>
         </div>
