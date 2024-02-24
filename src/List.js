@@ -5,12 +5,13 @@ import { useState } from "react";
 import Modal from "./Modal";
 import { Droppable } from "react-beautiful-dnd";
 
-function List({ data, title, className }) {
+function List({ title, className }) {
   const [open, setOpen] = useState(false);
 
+  const list = JSON.parse(localStorage.getItem(`${title}`));
   return (
     <>
-      <Modal open={open} setOpen={setOpen} data={data} storage={title} />
+      <Modal open={open} setOpen={setOpen} storage={title} />
       <div
         className={clsxm(
           "w-1/4 bg-red-30 flex flex-col justify-between h-full p-3 gap-y-2",
@@ -25,12 +26,11 @@ function List({ data, title, className }) {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {data !== null &&
-                data.map((card, index) => (
+              {list &&
+                list.map((card, index) => (
                   <Card
                     key={index}
                     index={index}
-                    data={data}
                     storage={title}
                     title={card.title}
                     description={card.description}
