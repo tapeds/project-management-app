@@ -14,6 +14,7 @@ function Card({ title, description, index, storage, data }) {
   const onClick = () => {
     const newData = data.filter((_, i) => i !== index);
     localStorage.setItem(`${storage}`, JSON.stringify(newData));
+    window.location.reload();
   };
 
   const editData = () => {
@@ -23,6 +24,7 @@ function Card({ title, description, index, storage, data }) {
       description: newDescription || description,
     });
     localStorage.setItem(`${storage}`, JSON.stringify(newData));
+    window.location.reload();
   };
 
   const moveData = (newStorage) => {
