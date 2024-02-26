@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { FaEdit } from "react-icons/fa";
 import clsxm from "./clsxm";
+import "./Card.css";
 import { LuSave } from "react-icons/lu";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -55,7 +56,7 @@ function Card({ title, description, index, storage, data }) {
     <Draggable draggableId={`${storage}-${index}`} index={index}>
       {(provided) => (
         <div
-          className="w-full bg-[#F6F6F6] py-2 flex flex-col items-center justify-center px-4 rounded-md group transition-all duration-300"
+          className="group card-main"
           onMouseLeave={() => {
             setEdit(false);
             setChange(false);
@@ -66,19 +67,16 @@ function Card({ title, description, index, storage, data }) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="flex justify-between items-center text-gray-900">
-            <div className={clsxm("flex flex-col", edit && "gap-0.5")}>
+          <div className="card-container">
+            <div className={clsxm("card-block", edit && "card-block-edit")}>
               {!edit ? (
                 <>
-                  <h5 className="text-base font-semibold">{title}</h5>
-                  <p className="text-xs w-[150px] text-wrap truncate">
-                    {description}
-                  </p>
+                  <h5 className="card-h5">{title}</h5>
+                  <p className="card-p">{description}</p>
                 </>
               ) : (
                 <>
                   <input
-                    className="w-3/4 px-1 text-sm border"
                     placeholder="Title"
                     defaultValue={title}
                     onChange={(e) => {
@@ -87,7 +85,6 @@ function Card({ title, description, index, storage, data }) {
                     }}
                   />
                   <input
-                    className="w-3/4 text-sm px-1 border"
                     placeholder="Description"
                     defaultValue={description}
                     onChange={(e) => {
@@ -99,29 +96,16 @@ function Card({ title, description, index, storage, data }) {
               )}
             </div>
             {!edit ? (
-              <FaEdit
-                className="size-4 hover:cursor-pointer group-hover:opacity-100 text-gray-900 opacity-0"
-                onClick={() => setEdit(!edit)}
-              />
+              <FaEdit className="icon-edit" onClick={() => setEdit(!edit)} />
             ) : change ? (
-              <LuSave
-                className="size-4 hover:cursor-pointer text-green-500"
-                onClick={() => editData()}
-              />
+              <LuSave className="icon-save" onClick={() => editData()} />
             ) : (
-              <FiTrash2
-                className="size-4 hover:cursor-pointer text-red-500"
-                onClick={() => onClick()}
-              />
+              <FiTrash2 className="icon-delete" onClick={() => onClick()} />
             )}
           </div>
           {edit && (
-            <div className="group-hover:block hidden mt-1.5">
-              <select
-                className="py-1 px-2 rounded-lg border text-sm"
-                onChange={handleSelectChange}
-                defaultValue={"Move to"}
-              >
+            <div className="card-edit">
+              <select onChange={handleSelectChange} defaultValue={"Move to"}>
                 <option disabled>Move to</option>
                 {storage !== "To Do" && <option>To Do</option>}
                 {storage !== "In Progress" && <option>In Progress</option>}

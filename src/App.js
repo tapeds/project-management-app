@@ -42,37 +42,33 @@ function App() {
   };
 
   return (
-    <main className="h-full overflow-hidden">
-      <div className="min-h-screen h-full flex flex-col gap-5 md:gap-10 justify-center items-start md:items-center bg-[#F6F6F6]">
-        <div className="flex flex-col md:items-center">
-          <h1 className="text-4xl font-bold px-5 text-gray-900">SHAV</h1>
-          <h1 className="text-2xl font-bold px-5 text-gray-900">
-            Project Management App
-          </h1>
+    <main>
+      <div className="blocks">
+        <div className="blocks-title">
+          <h1>SHAV</h1>
+          <h2>Project Management App</h2>
         </div>
-        <div className="w-full flex flex-col justify-center items-start lg:items-center max-lg:px-5 max-lg:overflow-x-scroll">
+        <div className="blocks-list">
           <DragDropContext onDragEnd={onDragEnd}>
-            <div className="h-[450px] w-[1000px] bg-gray-900 flex p-3 gap-3 rounded-xl divide-x-2 divide-gray-600">
+            <div className="blocks-lists">
               <List
                 title="To Do"
-                className="rounded-l-md"
+                className="rounded-left"
                 data={lists["To Do"]}
               />
               <List title="In Progress" data={lists["In Progress"]} />
               <List title="In Revision" data={lists["In Revision"]} />
               <List
                 title="Done"
-                className="rounded-r-md"
+                className="rounded-right"
                 data={lists["Done"]}
               />
             </div>
           </DragDropContext>
         </div>
       </div>
-      <div className="h-10 flex flex-col justify-center items-center bg-[#F6F6F6]">
-        <p className="text-base text-gray-900 font-medium">
-          Farrell Matthew Lim - 5025221258
-        </p>
+      <div className="footer">
+        <p className="footer-text">Farrell Matthew Lim - 5025221258</p>
       </div>
     </main>
   );

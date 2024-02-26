@@ -1,0 +1,41 @@
+.lists {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 12px;
+  row-gap: 8px;
+}
+
+.lists-title {
+  text-align: center;
+  font-weight: 600;
+  color: rgb(248 250 252);
+}
+
+.lists-list {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  overflow: auto;
+}
+
+.lists-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(248 250 252);
+}
+
+.lists-button:hover {
+  cursor: pointer;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}

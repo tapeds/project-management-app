@@ -2,6 +2,7 @@ import { FaPlus } from "react-icons/fa6";
 import Card from "./Card";
 import clsxm from "./clsxm";
 import { useState } from "react";
+import "./List.css";
 import Modal from "./Modal";
 import { Droppable } from "react-beautiful-dnd";
 
@@ -11,17 +12,12 @@ function List({ title, className, data }) {
   return (
     <>
       <Modal open={open} setOpen={setOpen} storage={title} data={data} />
-      <div
-        className={clsxm(
-          "w-1/4 bg-red-30 flex flex-col justify-between h-full p-3 gap-y-2",
-          className
-        )}
-      >
-        <div className="text-center font-semibold text-slate-50">{title}</div>
+      <div className={clsxm("lists", className)}>
+        <div className="lists-title">{title}</div>
         <Droppable droppableId={title}>
           {(provided) => (
             <div
-              className="h-full rounded-lg flex flex-col gap-y-1 overflow-auto"
+              className="lists-list"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -40,11 +36,8 @@ function List({ title, className, data }) {
             </div>
           )}
         </Droppable>
-        <div
-          className="hover:cursor-pointer flex items-center gap-2 text-slate-50"
-          onClick={() => setOpen(!open)}
-        >
-          <FaPlus className="size-4" /> Add Item
+        <div className="lists-button" onClick={() => setOpen(!open)}>
+          <FaPlus className="icon" /> Add Item
         </div>
       </div>
     </>
