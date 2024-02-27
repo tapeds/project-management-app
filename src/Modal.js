@@ -28,15 +28,21 @@ function CustomModal({ open, setOpen, storage }) {
         "Content-Type": "application/json",
         Authorization: apiToken,
       },
-      body: JSON.stringify({ ...formData, status: storage }),
+      body: JSON.stringify({
+        title: formData.title,
+        description: formData.description,
+        status: storage,
+        dueDate: formData.dueDate,
+        tags: [formData.priority],
+      }),
     })
+      .catch(() => toast.error("Failed to add task"))
       .then(() => {
         toast.success("Task added successfully");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
-      })
-      .catch(() => toast.error("Failed to add task"));
+        }, 500);
+      });
     setOpen(false);
   };
 
@@ -76,6 +82,41 @@ function CustomModal({ open, setOpen, storage }) {
                   placeholder="Masukkan description"
                   {...register("dueDate", { required: true })}
                 />
+              </div>
+              <div className="modal-title">
+                <label htmlFor="priority">Priority</label>
+                <div className="priority-radio">
+                  <div className="priority-label">
+                    <input
+                      type="radio"
+                      className="priority-radio-button"
+                      placeholder="Masukkan description"
+                      value="Low"
+                      {...register("priority", { required: true })}
+                    />
+                    <label htmlFor="priority">Low</label>
+                  </div>
+                  <div className="priority-label">
+                    <input
+                      type="radio"
+                      className="priority-radio-button"
+                      placeholder="Masukkan description"
+                      value="Medium"
+                      {...register("priority", { required: true })}
+                    />
+                    <label htmlFor="priority">Medium</label>
+                  </div>
+                  <div className="priority-label">
+                    <input
+                      type="radio"
+                      className="priority-radio-button"
+                      placeholder="Masukkan description"
+                      value="High"
+                      {...register("priority", { required: true })}
+                    />
+                    <label htmlFor="priority">High</label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

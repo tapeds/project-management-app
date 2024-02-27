@@ -74,6 +74,7 @@ function App() {
         description: card.description,
         status: destination.droppableId,
         dueDate: card.dueDate,
+        tags: card.tags,
       }),
     })
       .then(() => {

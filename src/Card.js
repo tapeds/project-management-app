@@ -27,7 +27,7 @@ function Card({ card, index, storage }) {
         toast.success("Task deleted successfully");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
       })
       .catch(() => toast.error("Failed to delete task"));
   };
@@ -38,12 +38,20 @@ function Card({ card, index, storage }) {
       headers: {
         "Content-Type": "application/json",
         Authorization: apiToken,
-        body: JSON.stringify(formData),
       },
+      body: JSON.stringify({
+        title: formData.title || card.title,
+        description: formData.description || card.description,
+        dueDate: formData.dueDate || card.dueDate,
+        tags: [formData.priority || card.tags[0]],
+      }),
     })
       .then(() => {
         toast.success("Task updated successfully");
         setEdit(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       })
       .catch(() => toast.error("Failed to update task"));
   };
@@ -82,15 +90,55 @@ function Card({ card, index, storage }) {
                   {!edit ? (
                     <>
                       <h5 className="card-h5">{card.title}</h5>
-                      <p className="card-p">
-                        Due <span className="card-color">{daysFromToday}</span>{" "}
-                        days left
-                      </p>
+                      <p className="card-p">{card.description}</p>
+                      <div className="card-tags">
+                        <p className="card-due">
+                          Due{" "}
+                          <span className="card-color">{daysFromToday}</span>{" "}
+                          days left
+                        </p>
+                        {card.tags[0] === "Low" && (
+                          <div className="card-low">Low</div>
+                        )}
+                        {card.tags[0] === "Medium" && (
+                          <div className="card-medium">Medium</div>
+                        )}
+                        {card.tags[0] === "High" && (
+                          <div className="card-high">High</div>
+                        )}
+                      </div>
                     </>
                   ) : (
                     <>
-                      <h5 className="card-h5">{card.title}</h5>
-                      <p className="card-p">{card.description}</p>
+                      <label htmlFor="priority" className="card-label">
+                        Title
+                      </label>
+                      <input
+                        placeholder="Edit title"
+                        className="card-input"
+                        {...register("title")}
+                      />
+                      <label htmlFor="priority" className="card-label">
+                        Description
+                      </label>
+                      <input
+                        placeholder="Edit description"
+                        className="card-input"
+                        {...register("description")}
+                      />
+                      <label htmlFor="priority" className="card-label">
+                        Priority
+                      </label>
+                      <select
+                        id="priority"
+                        className="card-select"
+                        defaultValue={card.tags[0]}
+                        {...register("priority")}
+                      >
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                      </select>
                       <label htmlFor="date" className="card-label">
                         Change Due Date
                       </label>

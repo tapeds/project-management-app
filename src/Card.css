@@ -24,21 +24,30 @@
 }
 
 .card-h5 {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 24px;
   display: inline-block;
-  font-weight: 600;
+  font-weight: 700;
   color: rgb(17 24 39);
   text-align: left;
 }
 
-.card-p {
+.card-due {
   font-size: 12px;
-  width: 150px;
-  line-height: 16px;
+  width: 200px;
+  line-height: 18px;
   text-wrap: wrap;
   text-overflow: ellipsis;
   color: rgb(17 24 39);
+}
+
+.card-p {
+  font-size: 12px;
+  width: 200px;
+  line-height: 18px;
+  text-wrap: wrap;
+  text-overflow: ellipsis;
+  color: rgb(107 114 128);
 }
 
 .card-block-edit input {
@@ -59,9 +68,26 @@
 .card-block {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.card-tags {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 170px;
+}
+
+.card-select {
+  padding: 2px;
+  border-radius: 8px;
 }
 
 .card-block-edit {
+  width: 200px;
   gap: 2px;
 }
 
@@ -131,4 +157,36 @@
 
 .card-color {
   color: crimson;
+}
+
+.card-medium {
+  padding: 12px;
+  border-radius: 9999px;
+  background-color: rgb(254 240 138);
+  width: fit-content;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.card-low {
+  padding: 12px;
+  border-radius: 9999px;
+  background-color: rgb(134 239 172);
+  width: fit-content;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.card-high {
+  padding: 12px;
+  border-radius: 9999px;
+  background-color: rgb(252 165 165);
+  width: fit-content;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.card-select {
+  padding: 2px;
+  width: 150px;
 }
