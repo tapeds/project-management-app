@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import List from "./List";
 import { DragDropContext } from "react-beautiful-dnd";
+import toast from "react-hot-toast";
+import { apiToken } from "./const";
 
 function App() {
   const [lists, setLists] = useState({
@@ -10,6 +12,33 @@ function App() {
     "In Revision": JSON.parse(localStorage.getItem("In Revision")) || [],
     Done: JSON.parse(localStorage.getItem("Done")) || [],
   });
+
+  useEffect(() => {
+    fetch("https://oprec-api.labse.in/api/task", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: apiToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const ToDo = data.data.tasks.filter((task) => task.status === "To Do");
+        const InProgress = data.data.tasks.filter(
+          (task) => task.status === "In Progress"
+        );
+        const InRevision = data.data.tasks.filter(
+          (task) => task.status === "In Revision"
+        );
+        const Done = data.data.tasks.filter((task) => task.status === "Done");
+        setLists({
+          "To Do": ToDo,
+          "In Progress": InProgress,
+          "In Revision": InRevision,
+          Done: Done,
+        });
+      });
+  }, []);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -34,11 +63,29 @@ function App() {
 
     setLists(newLists);
 
-    localStorage.setItem(source.droppableId, JSON.stringify(sourceList));
-    localStorage.setItem(
-      destination.droppableId,
-      JSON.stringify(destinationList)
-    );
+    fetch("https://oprec-api.labse.in/api/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: apiToken,
+      },
+      body: JSON.stringify({
+        title: card.title,
+        description: card.description,
+        status: destination.droppableId,
+        dueDate: card.dueDate,
+      }),
+    })
+      .then(() => {
+        fetch(`https://oprec-api.labse.in/api/task/${card._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: apiToken,
+          },
+        });
+      })
+      .catch(() => toast.error("Failed to add task"));
   };
 
   return (

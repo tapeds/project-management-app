@@ -24,11 +24,12 @@
 }
 
 .card-h5 {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   display: inline-block;
   font-weight: 600;
   color: rgb(17 24 39);
+  text-align: left;
 }
 
 .card-p {
@@ -40,12 +41,17 @@
   color: rgb(17 24 39);
 }
 
-.card-container input {
+.card-block-edit input {
   width: 75%;
-  padding-left: 4px;
-  padding-right: 4px;
+  height: max-content;
+  border-width: 2px;
+  border-radius: 8px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   font-size: 14px;
-  line-height: 0;
+  line-height: 16px;
   border-width: 1px;
   color: rgb(17 24 39);
 }
@@ -53,17 +59,10 @@
 .card-block {
   display: flex;
   flex-direction: column;
-  white-space: 0;
-  height: fit-content;
 }
 
 .card-block-edit {
   gap: 2px;
-}
-
-.card-edit {
-  display: none;
-  margin-top: 6px;
 }
 
 .group:hover .icon-edit {
@@ -78,6 +77,7 @@
   border-radius: 8px;
   border-width: 1px;
   font-size: 14px;
+  margin-top: 5px;
 }
 
 .icon-edit {
@@ -109,4 +109,26 @@
 
 .icon-delete:hover {
   cursor: pointer;
+}
+
+.icon-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-label {
+  font-size: 12px;
+  line-height: 8px;
+  margin-top: 10px;
+}
+
+.card-date {
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: 4px;
+}
+
+.card-color {
+  color: crimson;
 }

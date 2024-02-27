@@ -1,8 +1,9 @@
-import { useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 import "./Modal.css";
+import { FormProvider, useForm } from "react-hook-form";
+import { apiToken } from "./const";
 
 const customStyles = {
   content: {
@@ -15,54 +16,74 @@ const customStyles = {
   },
 };
 
-function CustomModal({ open, setOpen, storage, data }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+function CustomModal({ open, setOpen, storage }) {
+  const methods = useForm();
 
-  const onSubmit = () => {
-    if (title.length === 0 || description.length === 0) {
-      return toast.error("Title and description cannot be empty");
-    }
-    const a = data || [];
+  const { register, handleSubmit } = methods;
 
-    a.push({ title, description });
-
-    localStorage.setItem(storage, JSON.stringify(a));
+  const onSubmit = (formData) => {
+    fetch("https://oprec-api.labse.in/api/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: apiToken,
+      },
+      body: JSON.stringify({ ...formData, status: storage }),
+    })
+      .then(() => {
+        toast.success("Task added successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch(() => toast.error("Failed to add task"));
     setOpen(false);
-    window.location.reload();
   };
 
   return (
     <Modal isOpen={open} style={customStyles}>
-      <div className="modal-main">
-        <div className="modal-container">
-          <h3>Add Item</h3>
-          <IoClose className="modal-close" onClick={() => setOpen(false)} />
-        </div>
-        <div className="modal-content">
-          <div className="modal-title">
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              type="text"
-              placeholder="Masukkan title"
-              onChange={(e) => setTitle(e.target.value)}
-            />
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="modal-main">
+            <div className="modal-container">
+              <h3>Add Item</h3>
+              <IoClose className="modal-close" onClick={() => setOpen(false)} />
+            </div>
+            <div className="modal-content">
+              <div className="modal-title">
+                <label htmlFor="title">Title</label>
+                <input
+                  id="title"
+                  type="text"
+                  placeholder="Masukkan title"
+                  {...register("title", { required: true })}
+                />
+              </div>
+              <div className="modal-title">
+                <label htmlFor="description">Description</label>
+                <input
+                  id="description"
+                  type="text"
+                  placeholder="Masukkan description"
+                  {...register("description", { required: true })}
+                />
+              </div>
+              <div className="modal-title">
+                <label htmlFor="dueDate">Due Date</label>
+                <input
+                  id="dueDate"
+                  type="date"
+                  placeholder="Masukkan description"
+                  {...register("dueDate", { required: true })}
+                />
+              </div>
+            </div>
           </div>
-          <div className="modal-title">
-            <label htmlFor="description">Description</label>
-            <input
-              id="description"
-              type="text"
-              placeholder="Masukkan description"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-      <button className="modal-button" onClick={() => onSubmit()}>
-        Add
-      </button>
+          <button className="modal-button" type="submit">
+            Add
+          </button>
+        </form>
+      </FormProvider>
     </Modal>
   );
 }

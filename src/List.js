@@ -22,16 +22,20 @@ function List({ title, className, data }) {
               ref={provided.innerRef}
             >
               {data &&
-                data.map((card, index) => (
-                  <Card
-                    key={index}
-                    index={index}
-                    storage={title}
-                    data={data}
-                    title={card.title}
-                    description={card.description}
-                  />
-                ))}
+                data.map((card, index) => {
+                  if (!card.deletedAt)
+                    return (
+                      <Card
+                        key={index}
+                        index={index}
+                        storage={title}
+                        card={card}
+                        title={card.title}
+                        description={card.description}
+                      />
+                    );
+                  return null;
+                })}
               {provided.placeholder}
             </div>
           )}
