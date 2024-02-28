@@ -20,7 +20,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
+  row-gap: 6px;
   overflow: auto;
 }
 
